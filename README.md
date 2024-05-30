@@ -1,6 +1,18 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/wCJ4UtrS)
 # Estrategias de Persistencia - TP 2024
 
+## Para instalar correr el siguiente comando
+```npm install```
+
+## Para configurar el puerto de listener
+- Cambiar el valor de **app_puerto** en el archivo **.env** 
+
+## Para configurar el motor de BDD
+- Cambiar los valores para **db_** en el archivo **.env** 
+
+## Para correr en modo local usar el siguiente comando
+```npm run dev```
+
 Este trabajo práctico tiene como objetivo principal que los alumnos adquieran experiencia práctica en la implementación de asociaciones 1 a N y N a M en el contexto de una API REST utilizando un ORM (Object-relational mapping).
 
 - Asociaciones 1 a N y N a M:

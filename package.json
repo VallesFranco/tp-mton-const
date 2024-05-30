@@ -1,20 +1,32 @@
 {
   "name": "tp-ntom",
   "version": "1.0.0",
-  "description": "Trabajo Practico M to N - -Grupo xxxxxxxxx",
+  "description": "Trabajo Practico M to N - -Grupo const",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon src/app.js"
+    "dev": "nodemon src/app.js",
+    "start": "node src/app.js"
   },
   "keywords": [
     "sequelize",
     "association",
     "MTON"
   ],
-  "author": "Grupo xxxxxxxxx",
+  "author": "Grupo const",
   "license": "MIT",
   "devDependencies": {
-    "nodemon": "^3.1.0"
+    "nodemon": "^3.1.0",
+    "sequelize-cli": "^6.6.2"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "joi": "^17.13.1",
+    "mysql2": "^3.9.9",
+    "pg": "^8.11.5",
+    "pg-hstore": "^2.3.4",
+    "sequelize": "^6.37.3",
+    "sqlite3": "^5.1.7"
   }
 }
