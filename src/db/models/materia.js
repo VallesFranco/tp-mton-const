@@ -3,37 +3,37 @@ const {
   Model
 } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-  class Carrera extends Model {
+  class Materia extends Model {
     static associate(models) {
-      Carrera.hasMany(models.Materia, {
-        as: 'materias',
+      Materia.belongsTo(models.Carrera, {
+        as: 'Carrera',
         foreignKey: {
           name: 'carreraId',
           allowNull: false
         }
-      })
+      })  
     }
   }
-  Carrera.init({
+  Materia.init({
       nombre: {
         type: DataTypes.STRING,
         allowNull: false
       },
-      grado: {
-        type: DataTypes.STRING,
+      cuatrimestral: {
+        type: DataTypes.BOOLEAN,
         allowNull: false
       },
-      universidad: {
-        type: DataTypes.STRING,
+      anio: {
+        type: DataTypes.INTEGER,
         allowNull: false
       }
   }, {
     sequelize,
     name: {
-      singular: 'Carrera',
-      plural: 'Carreras'
+      singular: 'Materia',
+      plural: 'Materias'
     },
     timestamps: false
   });
-  return Carrera;
+  return Materia;
 };
