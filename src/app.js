@@ -4,6 +4,7 @@ const express = require('express');
 const db = require('./db/models');
 const carreraRoute = require('./routes/carrera.route');
 const materiaRoute = require('./routes/materia.route');
+const cursoRoute = require('./routes/curso.route');
 
 const app = express();
 const app_puerto = process.env.app_puerto || 3000;
@@ -11,6 +12,7 @@ const app_puerto = process.env.app_puerto || 3000;
 app.use(express.json());
 app.use(carreraRoute);
 app.use(materiaRoute);
+app.use(cursoRoute);
 
 app.listen(app_puerto, async () => {
     console.log(`La app arrancó correctamente en el puerto ${app_puerto}.`);

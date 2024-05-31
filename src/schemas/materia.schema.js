@@ -5,18 +5,18 @@ const materiaSchema = joi.object().keys({
         "string.min": `El nombre debe tener al menos {#limit} caracteres.`,
         "string.max": `El nombre debe tener como máximo {#limit} caracteres.`,
         "string.empty": "El nombre no puede estar vacío.",
-        "any.required": "El nombre es requerido."
+        "any.required": "El nombre es obligatorio."
     }),
     cuatrimestral: joi.number().required().valid(0, 1).messages({
         "boolean.empty": "Cuatrimestral no puede estar vacío.",
         "any.only": "Cuatrimestral debe ser 0 o 1.",
-        "any.required": "Cuatrimestral es requerido."
+        "any.required": "Cuatrimestral es obligatorio."
     }),
     anio: joi.number().required().min(1).max(5).messages({
         "number.min": `El anio debe ser al menos {#limit}.`,
         "number.max": `El anio debe ser como máximo {#limit}.`,
         "number.empty": "El anio no puede estar vacío.",
-        "any.required": "El anio es requerido."
+        "any.required": "El anio es obligatorio."
     })  
 });
 

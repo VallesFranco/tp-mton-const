@@ -31,11 +31,11 @@ controller.crearMateria = crearMateria;
 
 const getMateriasPorCarrera = async (req, res) => {
     const carreraId = req.params.id;
-    const carrera = await Carrera.findByPk(carreraId, { include:['materias'] });
-    if (carrera.materias.length === 0) {
+    const materiasYCarrera = await Carrera.findByPk(carreraId, { include:['materias'] });
+    if (materiasYCarrera.materias.length === 0) {
         return res.status(404).json({ mensaje: `La carrera con ID ${carreraId} no tiene materias.` });
     }
-    res.status(200).json(carrera.materias);
+    res.status(200).json(materiasYCarrera);
 };
 controller.getMateriasPorCarrera = getMateriasPorCarrera;
 

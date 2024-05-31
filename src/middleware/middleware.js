@@ -3,11 +3,18 @@ const existePorId = (Modelo) => {
         const id = req.params.id;
         const instancia = await Modelo.findByPk(id);
         const modelo = (Modelo.options && Modelo.options.name && Modelo.options.name.singular) || Modelo.name;
-        if (!instancia) {
+        if (!instancia)
             return res.status(404).json({ mensaje: `No existe ${modelo} con ID ${id}.` });
-        }
         next();
     }
+};
+
+const existeElRegistro = (Modelo) => async (req, res, next) => {
+    const valores = Object.fromEntries(Object.entries(req.body)
+            .filter(([atributo, valor]) => Modelo.rawAttributes.hasOwnProperty(atributo) && valor !== undefined));
+    if (await Modelo.findOne({ where: valores })) 
+        return res.status(400).json({ mensaje: `${Modelo.name} ya existe.` });
+    next();
 };
 
 const validarSchema = (schema) => {
@@ -30,4 +37,4 @@ const validarUrl = (req, res, next) => {
     next();
 };
 
-module.exports = {existePorId, validarSchema, validarUrl};
+module.exports = {existePorId, existeElRegistro, validarSchema, validarUrl};

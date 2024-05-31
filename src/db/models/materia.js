@@ -11,6 +11,13 @@ module.exports = (sequelize, DataTypes) => {
           name: 'carreraId',
           allowNull: false
         }
+      })
+      Materia.hasMany(models.Curso, {
+        as: 'cursos',
+        foreignKey: {
+          name: 'materiaId',
+          allowNull: false
+        }
       })  
     }
   }
