@@ -17,23 +17,25 @@ controller.getCursoPorId = getCursoPorId;
 const borrarCursoPorId = async (req, res) => {
     const id = req.params.id;
     try {
-        const cursoPorBorrar = await Curso.destroy( {where:{id}} );
+        const cursoPorBorrar = await Curso.destroy({where:{id}});
         if (cursoPorBorrar)
-            return res.status(200).json(`El Curso con ID ${id} se borró con exito.`);
+            return res.status(200).json({mensaje: `El curso con ID ${id} se borró con éxito.`});
     } catch(err) {
-        return res.status(500).json({ mensaje: `Error al intentar borrar el Curso con ID ${id}.`, err });
+        return res.status(500).json({mensaje: `Error al intentar borrar el curso con ID ${id}.`, err});
     }
 };    
 controller.borrarCursoPorId = borrarCursoPorId;
 
-const editarCursoPorId = async (req, res) => {
+const actualizarCursoPorId = async (req, res) => {
     const id = req.params.id;
-    const idx = data.findIndex(e => e.id == id);
-    if (idx >= 0) {
-        data[idx] = {id: Number(id), ...req.body};
-        res.status(200).json(data[idx]);
-    }
-}
-controller.editarCursoPorId = editarCursoPorId;
+    const datosNuevos = req.body;
+    const cursoPorActualizar = await Curso.findByPk(id);
+    if (cursoPorActualizar) {
+        await Curso.update(datosNuevos, {where: {id}});
+        const cursoActualizado = await Curso.findByPk(id);
+        return res.status(200).json({mensaje: `El curso con ID ${id} se actualizó con éxito.`, cursoActualizado});
+    }    
+};
+controller.actualizarCursoPorId = actualizarCursoPorId;
 
 module.exports = controller;

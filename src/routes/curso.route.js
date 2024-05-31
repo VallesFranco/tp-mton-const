@@ -8,6 +8,6 @@ const route = Router();
 route.get('/cursos', cursoController.getCursos);
 route.get('/cursos/:id', middleware.existePorId(Curso), cursoController.getCursoPorId);
 route.delete('/cursos/:id', middleware.validarUrl, middleware.existePorId(Curso), cursoController.borrarCursoPorId);
-route.put('/cursos/:id', middleware.existePorId(Curso), cursoController.editarCursoPorId);
+route.put('/cursos/:id', middleware.existePorId(Curso), cursoController.actualizarCursoPorId);
 
 module.exports = route;
