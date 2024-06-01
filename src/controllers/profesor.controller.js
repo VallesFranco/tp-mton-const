@@ -1,4 +1,4 @@
-const {Profesor} = require('../db/models');
+const {Profesor, Curso} = require('../db/models');
 
 const controller = {};
 
@@ -43,5 +43,23 @@ const borrarProfesorPorId = async (req, res) => {
     }
 };    
 controller.borrarProfesorPorId = borrarProfesorPorId;
+
+const getCursosPorProfesor = async (req, res) => {
+    const profesorId = req.params.id;
+    const profesorYCursos = await Profesor.findByPk(profesorId, {
+        include: [{
+            model: Curso,
+            as: 'cursos',
+            through: {attributes: []},
+            include: [{
+              association: 'materia'
+            }]
+        }]
+    });
+    if (profesorYCursos.cursos.length === 0) 
+        return res.status(404).json({mensaje: `El/La profesor/ra con ID ${profesorId} no tiene cursos.`});
+    res.status(200).json(profesorYCursos);
+};
+controller.getCursosPorProfesor = getCursosPorProfesor;
 
 module.exports = controller;

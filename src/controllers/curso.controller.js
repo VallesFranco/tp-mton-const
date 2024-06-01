@@ -1,4 +1,4 @@
-const {Curso} = require('../db/models');
+const {Curso, Profesor} = require('../db/models');
 
 const controller = {};
 
@@ -10,7 +10,7 @@ controller.getCursos = getCursos;
 
 const getCursoPorId = async (req, res) => {
     const id = req.params.id;
-    res.status(200).json(await Curso.findByPk(id));
+    res.status(200).json(await Curso.findByPk(id, {include: ['materia']} ));
 };
 controller.getCursoPorId = getCursoPorId;
 
@@ -37,5 +37,32 @@ const actualizarCursoPorId = async (req, res) => {
     }    
 };
 controller.actualizarCursoPorId = actualizarCursoPorId;
+
+const asociarProfesorAlCurso = async (req, res) => {
+    const cursoId = req.params.id;
+    const {profesorId} = req.body;
+    const curso = await Curso.findByPk(cursoId);
+    const profesor = await Profesor.findByPk(profesorId);
+    if (!profesor) 
+        return res.status(400).json({mensaje: "Debe proporcionar un ID existente de un/na profesor/ra para asociar al curso."});
+    await curso.addProfesores(profesor);
+    return res.status(201).json({mensaje: `Profesor/ra asociado/da con éxito al curso con ID ${cursoId}.`});
+};
+controller.asociarProfesorAlCurso = asociarProfesorAlCurso;
+
+const getProfesoresPorCurso = async (req, res) => {
+    const cursoId = req.params.id;
+    const cursoYProfesores = await Curso.findByPk(cursoId, {
+        include: ['materia', {
+            model: Profesor,
+            as: 'profesores',
+            through: {attributes: []}
+        }]
+    });
+    if (cursoYProfesores.profesores.length === 0) 
+        return res.status(404).json({mensaje: `El curso con ID ${cursoId} no tiene profesores.`});
+    res.status(200).json(cursoYProfesores);
+};
+controller.getProfesoresPorCurso = getProfesoresPorCurso;
 
 module.exports = controller;

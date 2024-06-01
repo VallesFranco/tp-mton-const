@@ -1,5 +1,4 @@
-const {Materia} = require('../db/models');
-const {Curso} = require('../db/models');
+const {Materia, Curso} = require('../db/models');
 
 const controller = {};
 
@@ -38,9 +37,8 @@ controller.crearCurso = crearCurso;
 const getCursosPorMateria = async (req, res) => {
     const materiaId = req.params.id;
     const cursosYMateria = await Materia.findByPk(materiaId, {include:['cursos']});
-    if (cursosYMateria.cursos.length === 0) {
+    if (cursosYMateria.cursos.length === 0)
         return res.status(404).json({mensaje: `La materia con ID ${materiaId} no tiene cursos.`});
-    }
     res.status(200).json(cursosYMateria);
 };
 controller.getCursosPorMateria = getCursosPorMateria;

@@ -4,14 +4,19 @@
 ## Para instalar correr el siguiente comando
 ```npm install```
 
+## Para correr en modo local usar el siguiente comando
+```npm run dev```
+
 ## Para configurar el puerto de listener
 - Cambiar el valor de **app_puerto** en el archivo **.env** 
 
 ## Para configurar el motor de BDD
-- Cambiar los valores para **db_** en el archivo **.env** 
+- Cambiar los valores para **db_** en el archivo **.env**
+ 
+## Imagen del DER
+![DiagramaER](DiagramaER.png)
 
-## Para correr en modo local usar el siguiente comando
-```npm run dev```
+## Consigna
 
 Este trabajo práctico tiene como objetivo principal que los alumnos adquieran experiencia práctica en la implementación de asociaciones 1 a N y N a M en el contexto de una API REST utilizando un ORM (Object-relational mapping).
 

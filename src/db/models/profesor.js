@@ -5,6 +5,17 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Profesor extends Model {
     static associate(models) {
+      Profesor.belongsToMany(models.Curso, {
+        through: {
+          model: 'Curso_Profesor',
+          attributes: []
+        },
+        as: 'cursos',
+        foreignKey: {
+          name: 'profesorId',
+          allowNull: false
+        }  
+      });
     }
   }
   Profesor.init({

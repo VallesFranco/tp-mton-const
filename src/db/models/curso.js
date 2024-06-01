@@ -6,12 +6,23 @@ module.exports = (sequelize, DataTypes) => {
   class Curso extends Model {
     static associate(models) {
       Curso.belongsTo(models.Materia, {
-        as: 'Materia',
+        as: 'materia',
         foreignKey: {
           name: 'materiaId',
           allowNull: false
         }
       })
+      Curso.belongsToMany(models.Profesor, {
+        through: {
+          model: 'Curso_Profesor',
+          attributes: []
+        },  
+        as: 'profesores',
+        foreignKey: {
+          name: 'cursoId',
+          allowNull: false
+        }  
+      });
     }
   }
   Curso.init({
