@@ -12,10 +12,9 @@ const materiaSchema = joi.object().keys({
         "any.only": "Cuatrimestral debe ser 0 o 1.",
         "any.required": "Cuatrimestral es obligatorio."
     }),
-    anio: joi.number().required().min(1).max(5).messages({
-        "number.min": `El anio debe ser al menos {#limit}.`,
-        "number.max": `El anio debe ser como máximo {#limit}.`,
+    anio: joi.number().required().valid(1, 2, 3, 4, 5).messages({
         "number.empty": "El anio no puede estar vacío.",
+        "any.only": "El anio debe ser uno de los siguientes valores: 1, 2, 3, 4, 5",
         "any.required": "El anio es obligatorio."
     })  
 });

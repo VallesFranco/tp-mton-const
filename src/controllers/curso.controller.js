@@ -17,11 +17,11 @@ controller.getCursoPorId = getCursoPorId;
 const borrarCursoPorId = async (req, res) => {
     const id = req.params.id;
     try {
-        const cursoPorBorrar = await Curso.destroy({where:{id}});
+        const cursoPorBorrar = await Curso.destroy({where: {id}});
         if (cursoPorBorrar)
             return res.status(200).json({mensaje: `El curso con ID ${id} se borró con éxito.`});
     } catch(err) {
-        return res.status(500).json({mensaje: `Error al intentar borrar el curso con ID ${id}.`, err});
+        return res.status(500).json({mensaje: `Error interno al intentar borrar el curso con ID ${id}.`, error: err.message});
     }
 };    
 controller.borrarCursoPorId = borrarCursoPorId;
@@ -40,11 +40,15 @@ controller.actualizarCursoPorId = actualizarCursoPorId;
 
 const asociarProfesorAlCurso = async (req, res) => {
     const cursoId = req.params.id;
-    const {profesorId} = req.body;
+    const {id} = req.body;
     const curso = await Curso.findByPk(cursoId);
-    const profesor = await Profesor.findByPk(profesorId);
+    const profesor = await Profesor.findByPk(id);
     if (!profesor) 
         return res.status(400).json({mensaje: "Debe proporcionar un ID existente de un/na profesor/ra para asociar al curso."});
+    const profesorDelCurso = await curso.getProfesores({where: { id }});
+    if (profesorDelCurso.length > 0) {
+        return res.status(400).json({mensaje: "El/La profesor/ra ya está asociado/da al curso."});
+    }
     await curso.addProfesores(profesor);
     return res.status(201).json({mensaje: `Profesor/ra asociado/da con éxito al curso con ID ${cursoId}.`});
 };
@@ -60,7 +64,7 @@ const getProfesoresPorCurso = async (req, res) => {
         }]
     });
     if (cursoYProfesores.profesores.length === 0) 
-        return res.status(404).json({mensaje: `El curso con ID ${cursoId} no tiene profesores.`});
+        return res.status(200).json({mensaje: `El curso con ID ${cursoId} no tiene profesores.`});
     res.status(200).json(cursoYProfesores);
 };
 controller.getProfesoresPorCurso = getProfesoresPorCurso;

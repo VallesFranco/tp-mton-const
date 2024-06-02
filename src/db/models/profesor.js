@@ -28,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     },  
     legajo: {
-      type: DataTypes.NUMBER
+      type: DataTypes.INTEGER
     },  
     activo: {
       type: DataTypes.BOOLEAN,

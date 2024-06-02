@@ -7,7 +7,7 @@ const route = Router();
 
 route.get('/cursos', cursoController.getCursos);
 route.get('/cursos/:id', middleware.existePorId(Curso), cursoController.getCursoPorId);
-route.delete('/cursos/:id', middleware.validarUrl, middleware.existePorId(Curso), cursoController.borrarCursoPorId);
+route.delete('/cursos/:id', middleware.existePorId(Curso), cursoController.borrarCursoPorId);
 route.put('/cursos/:id', middleware.existePorId(Curso), cursoController.actualizarCursoPorId);
 route.post('/cursos/:id/profesores', middleware.existePorId(Curso), cursoController.asociarProfesorAlCurso);
 route.get('/cursos/:id/profesores', middleware.existePorId(Curso), cursoController.getProfesoresPorCurso);

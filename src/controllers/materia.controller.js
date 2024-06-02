@@ -21,7 +21,7 @@ const borrarMateriaPorId = async (req, res) => {
         if (materiaPorBorrar)
             return res.status(200).json({mensaje: `La materia con ID ${id} se borró con éxito.`});
     } catch(err) {
-        return res.status(500).json({mensaje: `Error al intentar borrar la materia con ID ${id}.`, err});
+        return res.status(500).json({mensaje: `Error interno al intentar borrar la materia con ID ${id}.`, error: err.message});
     }
 };    
 controller.borrarMateriaPorId = borrarMateriaPorId;
@@ -38,7 +38,7 @@ const getCursosPorMateria = async (req, res) => {
     const materiaId = req.params.id;
     const cursosYMateria = await Materia.findByPk(materiaId, {include:['cursos']});
     if (cursosYMateria.cursos.length === 0)
-        return res.status(404).json({mensaje: `La materia con ID ${materiaId} no tiene cursos.`});
+        return res.status(200).json({mensaje: `La materia con ID ${materiaId} no tiene cursos.`});
     res.status(200).json(cursosYMateria);
 };
 controller.getCursosPorMateria = getCursosPorMateria;

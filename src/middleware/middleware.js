@@ -12,7 +12,7 @@ const existeElRegistro = (Modelo) => async (req, res, next) => {
     const valores = Object.fromEntries(Object.entries(req.body)
             .filter(([atributo, valor]) => Modelo.rawAttributes.hasOwnProperty(atributo) && valor !== undefined));
     if (await Modelo.findOne({where: valores})) 
-        return res.status(400).json({mensaje: `${Modelo.name} ya existe.`});
+        return res.status(400).json({mensaje: `${Modelo.name} ya existente.`});
     next();
 };
 
@@ -29,11 +29,4 @@ const validarSchema = (schema) => {
     }
 };
 
-const validarUrl = (req, res, next) => {
-    const id = req.params.id;
-    if (!/^\d+$/.test(id) || parseInt(id, 10) === 0) 
-        return res.status(500).json({mensaje: `Error: el ID debe ser un número entero positivo.`});
-    next();
-};
-
-module.exports = {existePorId, existeElRegistro, validarSchema, validarUrl};
+module.exports = {existePorId, existeElRegistro, validarSchema};

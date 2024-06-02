@@ -39,7 +39,7 @@ const borrarProfesorPorId = async (req, res) => {
         if (profesorPorBorrar)
             return res.status(200).json({mensaje: `El/La profesor/ra con ID ${id} se borró con éxito.`});
     } catch(err) {
-        return res.status(500).json({mensaje: `Error al intentar borrar el/la profesor/ra con ID ${id}.`, err});
+        return res.status(500).json({mensaje: `Error al intentar borrar el/la profesor/ra con ID ${id}.`, error: err.message});
     }
 };    
 controller.borrarProfesorPorId = borrarProfesorPorId;
@@ -57,7 +57,7 @@ const getCursosPorProfesor = async (req, res) => {
         }]
     });
     if (profesorYCursos.cursos.length === 0) 
-        return res.status(404).json({mensaje: `El/La profesor/ra con ID ${profesorId} no tiene cursos.`});
+        return res.status(200).json({mensaje: `El/La profesor/ra con ID ${profesorId} no tiene cursos.`});
     res.status(200).json(profesorYCursos);
 };
 controller.getCursosPorProfesor = getCursosPorProfesor;
