@@ -9,8 +9,8 @@ const getCarreras = async (req, res) => {
 controller.getCarreras = getCarreras;
 
 const getCarreraPorId = async (req, res) => {
-    const id = req.params.id;
-    res.status(200).json(await Carrera.findByPk(id));
+    const carreraId = req.params.id;
+    res.status(200).json(await Carrera.findByPk(carreraId));
 };
 controller.getCarreraPorId = getCarreraPorId;
 
@@ -30,9 +30,7 @@ controller.crearMateria = crearMateria;
 
 const getMateriasPorCarrera = async (req, res) => {
     const carreraId = req.params.id;
-    const materiasYCarrera = await Carrera.findByPk(carreraId, {include:['materias']});
-    if (materiasYCarrera.materias.length === 0)
-        return res.status(200).json({mensaje: `La carrera con ID ${carreraId} no tiene materias.`});
+    const materiasYCarrera = await Carrera.findByPk(carreraId, {include: ['materias']});
     res.status(200).json(materiasYCarrera);
 };
 controller.getMateriasPorCarrera = getMateriasPorCarrera;

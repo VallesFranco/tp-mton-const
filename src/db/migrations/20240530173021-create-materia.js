@@ -10,28 +10,29 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       nombre: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       cuatrimestral: {
-        type: Sequelize.TINYINT
+        type: Sequelize.BOOLEAN,
+        allowNull: false
       },
       anio: {
-        type: Sequelize.NUMBER
-      },
-      carreraId: {
-        type: Sequelize.NUMBER
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.INTEGER,
+        allowNull: false
+      }
+    });
+    await queryInterface.addColumn('Materia', 'carreraId', {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Carreras',
+        key: 'id'
       }
     });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Materia');
+    await queryInterface.removeColumn('Materia', 'carreraId');
   }
 };

@@ -10,7 +10,7 @@ route.get('/profesores', profesorController.getProfesores);
 route.get('/profesores/:id', middleware.existePorId(Profesor), profesorController.getProfesorPorId);
 route.post('/profesores', middleware.existeElRegistro(Profesor), middleware.validarSchema(profesorSchema), profesorController.crearProfesor);
 route.put('/profesores/:id', middleware.existePorId(Profesor), profesorController.actualizarProfesorPorId);
-route.delete('/profesores/:id', middleware.existePorId(Profesor), profesorController.borrarProfesorPorId);
-route.get('/profesores/:id/cursos', middleware.existePorId(Profesor), profesorController.getCursosPorProfesor);
+route.delete('/profesores/:id', middleware.existePorId(Profesor), middleware.simularBorrar(profesorController.borrarProfesorPorId), profesorController.borrarProfesorPorId);
+route.get('/profesores/:id/cursos', middleware.existePorId(Profesor), middleware.validarNoVacio(Profesor, 'cursos'), profesorController.getCursosPorProfesor);
 
 module.exports = route;

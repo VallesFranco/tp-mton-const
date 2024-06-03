@@ -10,24 +10,19 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       nombre: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       fechaNacimiento: {
-        type: Sequelize.DATEONLY
+        type: Sequelize.DATEONLY,
+        allowNull: false
       },
       legajo: {
-        type: Sequelize.NUMBER
+        type: Sequelize.INTEGER
       },
       activo: {
-        type: Sequelize.BOOLEAN
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.BOOLEAN,
+        allowNull: false
       }
     });
   },

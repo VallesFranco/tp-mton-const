@@ -21,9 +21,9 @@ app.listen(app_puerto, async () => {
     console.log(`La app arrancó correctamente en el puerto ${app_puerto}.`);
     try {
         await db.sequelize.authenticate();
-        await db.sequelize.sync({force: true});
+        await db.sequelize.sync({force:true});                     
         await inicializarModelos();
-        console.log('Modelos inicializados correctamente.');
+        console.log('Los modelos fueron inicializados correctamente.');
     } catch (err) {
         console.error('No se pudo conectar a la base de datos:', err);
     }

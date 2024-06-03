@@ -16,8 +16,8 @@ async function inicializarModelos() {
                         {
                             comision: "A1",
                             turno: "Mañana",
-                            fechaInicio: "2015-3-20",
-                            fechaFin: "2015-7-20" 
+                            fechaInicio: "2015-03-20",
+                            fechaFin: "2015-07-20" 
                         }
                     ]
                 },
@@ -29,14 +29,14 @@ async function inicializarModelos() {
                         {
                             comision: "A2",
                             turno: "Mañana",
-                            fechaInicio: "2015-3-20",
-                            fechaFin: "2015-7-20" 
+                            fechaInicio: "2015-03-20",
+                            fechaFin: "2015-07-20" 
                         },
                         {
                             comision: "A3",
                             turno: "Tarde",
-                            fechaInicio: "2015-3-20",
-                            fechaFin: "2015-7-20" 
+                            fechaInicio: "2015-03-20",
+                            fechaFin: "2015-07-20" 
                         }
                     ]
                 }, 
@@ -45,8 +45,16 @@ async function inicializarModelos() {
         await db.Carrera.create({
             nombre: "Licenciatura en Informática",
             grado: "Grado",
-            universidad: "UNAHUR"
-        });
+            universidad: "UNAHUR",
+            materias: [
+                {
+                    nombre: "Programación con objetos 3",
+                    cuatrimestral: 1,
+                    anio: 1,
+                    cursos: []
+                }
+            ]
+        }, { include: [{ model: db.Materia, as: 'materias', include: { model: db.Curso, as: 'cursos' } }] });
         await db.Carrera.create({
             nombre: "Doctorado en Educación",
             grado: "Posgrado",
@@ -54,13 +62,13 @@ async function inicializarModelos() {
         });
         await db.Profesor.create({
             nombre: "Franco",
-            fechaNacimiento: "2000-3-20",
+            fechaNacimiento: "2000-03-20",
             legajo: 42000888,
             activo: 1
         });
         await db.Profesor.create({
             nombre: "David",
-            fechaNacimiento: "2000-5-20",
+            fechaNacimiento: "2000-05-20",
             legajo: 42100888,
             activo: 0
         });

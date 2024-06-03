@@ -7,7 +7,7 @@ const configBase = {
   host: process.env.db_host,
   port: process.env.db_puerto,
   dialect: process.env.db_motor,
-  storage: process.env.db_motor === 'sqlite' ? process.env.db_store : undefined,
+  storage: process.env.db_motor === 'sqlite' ? process.env.db_store : undefined
 };
 
 module.exports = {

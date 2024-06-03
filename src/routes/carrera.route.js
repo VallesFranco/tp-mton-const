@@ -11,6 +11,6 @@ route.get('/carreras', carreraController.getCarreras);
 route.get('/carreras/:id', middleware.existePorId(Carrera), carreraController.getCarreraPorId);
 route.post('/carreras', middleware.existeElRegistro(Carrera), middleware.validarSchema(carreraSchema), carreraController.crearCarrera);
 route.post('/carreras/:id/materia', middleware.existePorId(Carrera), middleware.existeElRegistro(Materia), middleware.validarSchema(materiaSchema), carreraController.crearMateria);
-route.get('/carreras/:id/materias', middleware.existePorId(Carrera), carreraController.getMateriasPorCarrera);
+route.get('/carreras/:id/materias', middleware.existePorId(Carrera), middleware.validarNoVacio(Carrera, 'materias'), carreraController.getMateriasPorCarrera);
 
 module.exports = route;

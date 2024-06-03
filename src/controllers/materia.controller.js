@@ -9,20 +9,15 @@ const getMaterias = async (req, res) => {
 controller.getMaterias = getMaterias;
 
 const getMateriaPorId = async (req, res) => {
-    const id = req.params.id;
-    res.status(200).json(await Materia.findByPk(id));
+    const materiaId = req.params.id;
+    res.status(200).json(await Materia.findByPk(materiaId));
 };
 controller.getMateriaPorId = getMateriaPorId;
 
 const borrarMateriaPorId = async (req, res) => {
     const id = req.params.id;
-    try {
-        const materiaPorBorrar = await Materia.destroy({where:{id}});
-        if (materiaPorBorrar)
-            return res.status(200).json({mensaje: `La materia con ID ${id} se borró con éxito.`});
-    } catch(err) {
-        return res.status(500).json({mensaje: `Error interno al intentar borrar la materia con ID ${id}.`, error: err.message});
-    }
+    await Materia.destroy({where: {id}});
+    return res.status(200).json({mensaje: `La materia con ID ${id} se borró con éxito.`});
 };    
 controller.borrarMateriaPorId = borrarMateriaPorId;
 
@@ -36,9 +31,7 @@ controller.crearCurso = crearCurso;
 
 const getCursosPorMateria = async (req, res) => {
     const materiaId = req.params.id;
-    const cursosYMateria = await Materia.findByPk(materiaId, {include:['cursos']});
-    if (cursosYMateria.cursos.length === 0)
-        return res.status(200).json({mensaje: `La materia con ID ${materiaId} no tiene cursos.`});
+    const cursosYMateria = await Materia.findByPk(materiaId, {include: ['cursos']});
     res.status(200).json(cursosYMateria);
 };
 controller.getCursosPorMateria = getCursosPorMateria;

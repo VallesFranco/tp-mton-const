@@ -13,25 +13,29 @@ module.exports = {
         type: Sequelize.STRING
       },
       turno: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false
       },
       fechaInicio: {
-        type: Sequelize.DATEONLY
+        type: Sequelize.DATEONLY,
+        allowNull: false
       },
       fechaFin: {
-        type: Sequelize.DATEONLY
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATEONLY,
+        allowNull: false
+      }
+    });
+    await queryInterface.addColumn('Cursos', 'materiaId', {
+      type: Sequelize.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Materia',
+        key: 'id'
       }
     });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Cursos');
+    await queryInterface.removeColumn('Cursos', 'materiaId');
   }
 };
