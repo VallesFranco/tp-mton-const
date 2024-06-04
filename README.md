@@ -1,8 +1,9 @@
 [![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-24ddc0f5d75046c5622901739e7c5dd533143b0c8e959d652212380cedb1ea36.svg)](https://classroom.github.com/a/wCJ4UtrS)
 # Estrategias de Persistencia - TP 2024
 
-## Para instalar correr el siguiente comando
+## Para instalar correr los siguientes comandos
 ```npm install```
+```npm start```
 
 ## Para correr en modo local usar el siguiente comando
 ```npm run dev```
